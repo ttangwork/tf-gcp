@@ -6,6 +6,12 @@ permissions:
 
 on:
   workflow_dispatch:
+    inputs:
+      name:
+        description: 'Destroy?'
+        required: true
+        default: false
+        type: boolean  
 
 env:
   TF_VERSION: 1.8.0
@@ -43,16 +49,16 @@ jobs:
       run: terraform validate
 
     - name: Terraform Plan
-      if: github.event_name == 'workflow_dispatch' && github.event.inputs.destroy != 'true'
+      if: github.event_name == 'workflow_dispatch' && github.event.inputs.destroy != true
       working-directory: terraform/network
       run: terraform plan -out=tfplan
 
     - name: Terraform Apply
-      if: github.event_name == 'workflow_dispatch' && github.event.inputs.destroy != 'true'
+      if: github.event_name == 'workflow_dispatch' && github.event.inputs.destroy != true
       working-directory: terraform/network
       run: terraform apply tfplan
 
     - name: Terraform Destroy
-      if: github.event_name == 'workflow_dispatch' && github.event.inputs.destroy == 'true'
+      if: github.event_name == 'workflow_dispatch' && github.event.inputs.destroy == true
       working-directory: terraform/network
       run: terraform destroy -auto-approve

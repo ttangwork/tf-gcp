@@ -22,7 +22,6 @@ jobs:
     permissions:
       contents: read
       id-token: write # Required for Workload Identity Federation
-      pull-requests: write # Allows the workflow to comment on PRs
 
     steps:
     - name: Checkout
@@ -31,9 +30,9 @@ jobs:
     - name: GCP Auth
       uses: google-github-actions/auth@v3
       with:
-        project_id: project-f53962c2-b852-4294-a0f
-        service_account: github-actions-sa@project-f53962c2-b852-4294-a0f.iam.gserviceaccount.com
-        workload_identity_provider: projects/776566261695/locations/global/workloadIdentityPools/github/providers/my-repo
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
@@ -49,16 +48,16 @@ jobs:
       run: terraform validate
 
     - name: Terraform Plan
-      if: github.event_name == 'workflow_dispatch' && github.event.inputs.destroy != true
+      if: github.event.inputs.destroy == 'false'
       working-directory: terraform/network
       run: terraform plan -out=tfplan
 
     - name: Terraform Apply
-      if: github.event_name == 'workflow_dispatch' && github.event.inputs.destroy != true
+      if: github.event.inputs.destroy == 'false'
       working-directory: terraform/network
       run: terraform apply tfplan
 
     - name: Terraform Destroy
-      if: github.event_name == 'workflow_dispatch' && github.event.inputs.destroy == true
+      if: github.event.inputs.destroy == 'true'
       working-directory: terraform/network
       run: terraform destroy -auto-approve

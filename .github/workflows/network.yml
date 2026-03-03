@@ -7,7 +7,7 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
-      name:
+      destroy:
         description: 'Destroy?'
         required: true
         default: false

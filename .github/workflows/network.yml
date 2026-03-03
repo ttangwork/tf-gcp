@@ -51,7 +51,7 @@ jobs:
     - name: Terraform Plan
       if: github.event.inputs.destroy == 'false'
       working-directory: terraform/network
-      run: terraform plan -out=tfplan
+      run: terraform plan -var-file=../tfvars/prod.tfvars -out=tfplan
 
     - name: Terraform Apply
       if: github.event.inputs.destroy == 'false'

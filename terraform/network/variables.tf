@@ -1,3 +1,14 @@
+# project
+variable "project_id" {
+  description = "The ID of the project in which to create the network."
+  type        = string
+}
+
+variable "region" {
+  description = "The region in which to create the network."
+  type        = string
+}
+# network
 variable "routing_mode" {
   description = "The network routing mode. Can be either 'REGIONAL' or 'GLOBAL'."
   type        = string

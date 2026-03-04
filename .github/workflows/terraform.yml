@@ -7,15 +7,6 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
-      component:
-        description: 'Component to deploy?'
-        required: true
-        default: network
-        type: choice
-        options:
-        - network
-        - gke
-        - gce
       destroy:
         description: 'Destroy?'
         required: true
@@ -35,9 +26,6 @@ jobs:
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
-    env:
-      TF_VAR_deploy_network: ${{ github.event.inputs.component == 'network' }}
-      TF_VAR_deploy_gke: ${{ github.event.inputs.component == 'gke' }}
 
     steps:
     - name: Checkout
@@ -121,9 +109,6 @@ jobs:
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
-    env:
-      TF_VAR_deploy_network: ${{ github.event.inputs.component == 'network' }}
-      TF_VAR_deploy_gke: ${{ github.event.inputs.component == 'gke' }}
 
     steps:
     - name: Checkout

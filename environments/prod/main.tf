@@ -21,7 +21,6 @@ resource "google_project_service" "apis" {
 
 # network
 module "network" {
-  count  = var.deploy_network ? 1 : 0
   source = "../../modules/network"
 
   project_id      = var.project_id
@@ -39,14 +38,13 @@ module "network" {
 
 # gke cluster
 module "gke" {
-  count  = var.deploy_gke ? 1 : 0
   source = "../../modules/gke"
 
   project_id          = var.project_id
   region              = var.region
   cluster_name        = var.cluster_name
-  vpc_id              = module.network[0].vpc_id
-  gke_nodes_subnet_id = module.network[0].gke_nodes_subnet_id
+  vpc_id              = module.network.vpc_id
+  gke_nodes_subnet_id = module.network.gke_nodes_subnet_id
   master_cidr         = var.master_cidr
   management_cidr     = var.management_cidr
   release_channel     = var.release_channel

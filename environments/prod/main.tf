@@ -40,18 +40,19 @@ module "network" {
 module "gke" {
   source = "../../modules/gke"
 
-  project_id          = var.project_id
-  region              = var.region
-  cluster_name        = var.cluster_name
-  vpc_id              = module.network.vpc_id
-  gke_nodes_subnet_id = module.network.gke_nodes_subnet_id
-  master_cidr         = var.master_cidr
-  management_cidr     = var.management_cidr
-  release_channel     = var.release_channel
-  node_machine_type   = var.node_machine_type
-  node_disk_size_gb   = var.node_disk_size_gb
-  node_disk_type      = var.node_disk_type
-  min_node_count      = var.min_node_count
-  max_node_count      = var.max_node_count
-  enable_gateway_api  = var.enable_gateway_api
+  project_id           = var.project_id
+  region               = var.region
+  cluster_name         = var.cluster_name
+  vpc_id               = module.network.vpc_id
+  gke_nodes_subnet_id  = module.network.gke_nodes_subnet_id
+  management_subnet_id = module.network.management_subnet_id
+  master_cidr          = var.master_cidr
+  management_cidr      = var.management_cidr
+  release_channel      = var.release_channel
+  node_machine_type    = var.node_machine_type
+  node_disk_size_gb    = var.node_disk_size_gb
+  node_disk_type       = var.node_disk_type
+  min_node_count       = var.min_node_count
+  max_node_count       = var.max_node_count
+  enable_gateway_api   = var.enable_gateway_api
 }

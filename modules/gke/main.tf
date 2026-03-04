@@ -200,7 +200,7 @@ resource "google_compute_instance" "bastion" {
   }
 
   network_interface {
-    subnetwork = var.management_cidr
+    subnetwork = var.management_subnet_id
     # access_config {} # no public IP
   }
 

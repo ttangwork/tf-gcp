@@ -20,6 +20,11 @@ variable "gke_nodes_subnet_id" {
   type        = string
 }
 
+variable "management_subnet_id" {
+  description = "The ID of the management subnet"
+  type        = string
+}
+
 variable "master_cidr" {
   description = "The CIDR block for the GKE master endpoint."
   type        = string

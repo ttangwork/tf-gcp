@@ -100,7 +100,7 @@ resource "google_compute_firewall" "gke_control_plane_to_nodes" {
 
   allow {
     protocol = "tcp"
-    ports    = ["443", "10250"]       # kubelet + API server
+    ports    = ["443", "10250"] # kubelet + API server
   }
   allow {
     protocol = "tcp"

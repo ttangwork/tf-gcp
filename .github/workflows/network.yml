@@ -7,6 +7,15 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
+      component:
+        description: 'Component to deploy?'
+        required: true
+        default: network
+        type: choice
+        options:
+        - network
+        - gke
+        - gce
       destroy:
         description: 'Destroy?'
         required: true
@@ -15,7 +24,7 @@ on:
 
 env:
   TF_VERSION: 1.8.0
-  WORKING_DIR: terraform/network
+  WORKING_DIR: "terraform/${{ github.event.inputs.component }}"
 
 jobs:
   terraform-plan:

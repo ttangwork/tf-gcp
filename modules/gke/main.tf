@@ -180,10 +180,11 @@ resource "google_project_iam_member" "bastion_cluster_viewer" {
 }
 
 resource "google_compute_instance" "bastion" {
-  project      = var.project_id
-  name         = "${var.cluster_name}-bastion"
-  machine_type = var.bastion_machine_type
-  zone         = var.bastion_zone
+  project                   = var.project_id
+  name                      = "${var.cluster_name}-bastion"
+  machine_type              = var.bastion_machine_type
+  zone                      = var.bastion_zone
+  allow_stopping_for_update = true
 
   service_account {
     email  = google_service_account.bastion.email

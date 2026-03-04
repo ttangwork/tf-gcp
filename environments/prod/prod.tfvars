@@ -19,7 +19,7 @@ release_channel             = "REGULAR"
 enable_binary_authorization = false
 
 # node pool
-min_node_count    = 0
+min_node_count    = 1
 max_node_count    = 3
 node_machine_type = "e2-standard-2"
 node_disk_type    = "pd-standard"

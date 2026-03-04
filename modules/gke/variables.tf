@@ -94,7 +94,7 @@ variable "node_disk_size_gb" {
 variable "bastion_machine_type" {
   description = "The machine type of the bastion VM."
   type        = string
-  default     = "e2-micro"
+  default     = "e2-medium"
 }
 
 variable "bastion_zone" {

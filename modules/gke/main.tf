@@ -38,9 +38,9 @@ resource "google_container_cluster" "main" {
   remove_default_node_pool = true
   networking_mode          = "VPC_NATIVE"
   datapath_provider        = "ADVANCED_DATAPATH"
-
-  network    = var.vpc_id
-  subnetwork = var.gke_nodes_subnet_id
+  network                  = var.vpc_id
+  subnetwork               = var.gke_nodes_subnet_id
+  deletion_protection      = false
 
   ip_allocation_policy {
     cluster_secondary_range_name  = "pods"

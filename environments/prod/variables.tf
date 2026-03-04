@@ -104,9 +104,3 @@ variable "node_disk_size_gb" {
   type        = number
   default     = 100
 }
-
-variable "node_pool_spot" {
-  description = "Whether to use spot nodes in the node pool."
-  type        = bool
-  default     = false
-}

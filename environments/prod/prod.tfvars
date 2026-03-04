@@ -24,4 +24,3 @@ max_node_count    = 3
 node_machine_type = "e2-standard-2"
 node_disk_type    = "pd-standard"
 node_disk_size_gb = 100
-node_pool_spot    = true

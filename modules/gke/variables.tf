@@ -90,12 +90,6 @@ variable "node_disk_size_gb" {
   default     = 100
 }
 
-variable "node_pool_spot" {
-  description = "Whether to use spot nodes in the node pool."
-  type        = bool
-  default     = false
-}
-
 # bastion vm
 variable "bastion_machine_type" {
   description = "The machine type of the bastion VM."

@@ -140,7 +140,6 @@ resource "google_container_node_pool" "main_node_pool" {
     machine_type    = var.node_machine_type
     disk_type       = var.node_disk_type
     disk_size_gb    = var.node_disk_size_gb
-    spot            = var.node_pool_spot
     service_account = google_service_account.gke_nodes.email
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
@@ -202,13 +201,6 @@ resource "google_compute_instance" "bastion" {
   network_interface {
     subnetwork = var.management_subnet_id
     # access_config {} # no public IP
-  }
-
-  scheduling {
-    preemptible         = true
-    provisioning_model  = "SPOT"
-    automatic_restart   = false
-    on_host_maintenance = "TERMINATE" # required for spot
   }
 
   metadata = {

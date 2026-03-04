@@ -54,6 +54,4 @@ module "gke" {
   min_node_count      = var.min_node_count
   max_node_count      = var.max_node_count
   enable_gateway_api  = var.enable_gateway_api
-
-  depends_on = [ module.network ]
 }

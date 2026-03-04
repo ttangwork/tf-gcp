@@ -46,7 +46,3 @@ variable "management_cidr" {
   description = "The CIDR range for the management subnet."
   type        = string
 }
-variable "data_cidr" {
-  description = "The CIDR range for the data subnet."
-  type        = string
-}

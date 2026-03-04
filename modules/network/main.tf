@@ -34,15 +34,6 @@ resource "google_compute_subnetwork" "management" {
   ip_cidr_range = var.management_cidr
 }
 
-resource "google_compute_subnetwork" "data" {
-  project                  = var.project_id
-  name                     = "${var.vpc_name}-data"
-  region                   = var.region
-  network                  = google_compute_network.main.id
-  ip_cidr_range            = var.data_cidr
-  private_ip_google_access = true
-}
-
 # Cloud Router and Cloud NAT for outbound internet access from private subnets
 resource "google_compute_router" "main" {
   project = var.project_id
@@ -61,6 +52,11 @@ resource "google_compute_router_nat" "main" {
 
   subnetwork {
     name                    = google_compute_subnetwork.gke_nodes.id
+    source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
+  }
+
+  subnetwork {
+    name                    = google_compute_subnetwork.management.id
     source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
   }
 
@@ -87,7 +83,6 @@ resource "google_compute_firewall" "allow_internal" {
     var.pods_cidr,
     var.services_cidr,
     var.management_cidr,
-    var.data_cidr,
   ]
 }
 

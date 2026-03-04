@@ -30,7 +30,6 @@ module "network" {
   pods_cidr       = var.pods_cidr
   services_cidr   = var.services_cidr
   management_cidr = var.management_cidr
-  data_cidr       = var.data_cidr
   master_cidr     = var.master_cidr
 
   depends_on = [google_project_service.apis]

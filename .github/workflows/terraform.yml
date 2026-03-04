@@ -24,7 +24,7 @@ on:
 
 env:
   TF_VERSION: 1.8.0
-  WORKING_DIR: "terraform/${{ github.event.inputs.component }}"
+  WORKING_DIR: "environments/prod"
 
 jobs:
   terraform-plan:
@@ -35,6 +35,9 @@ jobs:
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
+    env:
+      TF_VAR_deploy_network: ${{ github.event.inputs.component == 'network' }}
+      TF_VAR_deploy_gke: ${{ github.event.inputs.component == 'gke' }}
 
     steps:
     - name: Checkout
@@ -62,7 +65,9 @@ jobs:
       run: terraform validate
 
     - name: Terraform Plan
-      run: terraform plan -var-file=../tfvars/prod.tfvars -out=tfplan
+      run: |
+        echo "Running terraform plan for component: ${{ github.event.inputs.component }}"
+        terraform plan -var-file=../tfvars/prod.tfvars -out=tfplan
 
     - name: Upload Plan
       uses: actions/upload-artifact@v4
@@ -117,6 +122,9 @@ jobs:
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
+    env:
+      TF_VAR_deploy_network: ${{ github.event.inputs.component == 'network' }}
+      TF_VAR_deploy_gke: ${{ github.event.inputs.component == 'gke' }}
 
     steps:
     - name: Checkout

@@ -67,7 +67,7 @@ jobs:
     - name: Terraform Plan
       run: |
         echo "Running terraform plan for component: ${{ github.event.inputs.component }}"
-        terraform plan -var-file=../tfvars/prod.tfvars -out=tfplan
+        terraform plan -var-file=./prod.tfvars -out=tfplan
 
     - name: Upload Plan
       uses: actions/upload-artifact@v4
@@ -79,7 +79,6 @@ jobs:
   terraform-apply:
     name: Terraform Apply
     runs-on: ubuntu-latest
-    environment: production
     needs: terraform-plan
     if: (github.ref == 'refs/heads/main' && github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.inputs.destroy == 'false'
     defaults:
@@ -146,7 +145,7 @@ jobs:
       run: terraform init
 
     - name: Terraform Plan Destroy
-      run: terraform plan -var-file=../tfvars/prod.tfvars -destroy -out=tfplan-destroy
+      run: terraform plan -var-file=./prod.tfvars -destroy -out=tfplan-destroy
 
     - name: Upload Plan
       uses: actions/upload-artifact@v4

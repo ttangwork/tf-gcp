@@ -27,15 +27,6 @@ variable "vpc_name" {
   description = "The name of the VPC network to create."
   type        = string
 }
-variable "routing_mode" {
-  description = "The network routing mode. Can be either 'REGIONAL' or 'GLOBAL'."
-  type        = string
-}
-
-variable "auto_create_subnetworks" {
-  description = "Whether to automatically create subnetworks in each region. If true, a subnetwork will be created in each region with the same name as the network."
-  type        = bool
-}
 
 # subnet
 variable "master_cidr" {

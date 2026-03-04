@@ -113,10 +113,10 @@ resource "google_compute_firewall" "gke_control_plane_to_nodes" {
 
 # IAP to Bastion VM
 resource "google_compute_firewall" "allow_iap_to_bastion" {
-  project = var.project_id
-  name    = "${var.vpc_name}-bastion-ssh"
-  network    = google_compute_network.main.name
-  priority   = 1000
+  project  = var.project_id
+  name     = "${var.vpc_name}-bastion-ssh"
+  network  = google_compute_network.main.name
+  priority = 1000
 
   allow {
     protocol = "tcp"

@@ -205,9 +205,9 @@ resource "google_compute_instance" "bastion" {
   }
 
   scheduling {
-    provisioning_model = "SPOT"
-    automatic_restart  = false
-    on_host_maintenance = "TERMINATE"  # required for spot
+    provisioning_model  = "SPOT"
+    automatic_restart   = false
+    on_host_maintenance = "TERMINATE" # required for spot
   }
 
   metadata = {

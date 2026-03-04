@@ -167,3 +167,59 @@ resource "google_container_node_pool" "main_node_pool" {
   }
 }
 
+# Bastion VM
+resource "google_service_account" "bastion" {
+  project      = var.project_id
+  account_id   = "${var.cluster_name}-bastion-sa"
+  display_name = "Bastion VM SA - ${var.cluster_name}"
+}
+
+resource "google_project_iam_member" "bastion_cluster_viewer" {
+  project = var.project_id
+  role    = "roles/container.clusterViewer"
+  member  = "serviceAccount:${google_service_account.bastion.email}"
+}
+
+resource "google_compute_instance" "bastion" {
+  project      = var.project_id
+  name         = "${var.cluster_name}-bastion"
+  machine_type = var.bastion_machine_type
+  zone         = var.bastion_zone
+
+  service_account {
+    email  = google_service_account.bastion.email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-12"
+      size  = 20
+      type  = "pd-standard"
+    }
+  }
+
+  network_interface {
+    subnetwork = var.management_cidr
+    # access_config {} # no public IP
+  }
+
+  scheduling {
+    provisioning_model = "SPOT"
+    automatic_restart  = false
+    on_host_maintenance = "TERMINATE"  # required for spot
+  }
+
+  metadata = {
+    enable-oslogin = "TRUE"
+  }
+
+  tags = ["bastion"]
+
+  shielded_instance_config {
+    enable_integrity_monitoring = true
+    enable_secure_boot          = true
+    enable_vtpm                 = true
+  }
+}
+

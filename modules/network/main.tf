@@ -111,6 +111,22 @@ resource "google_compute_firewall" "gke_control_plane_to_nodes" {
   source_ranges = [var.master_cidr]
 }
 
+# IAP to Bastion VM
+resource "google_compute_firewall" "allow_iap_to_bastion" {
+  project = var.project_id
+  name    = "${var.vpc_name}-bastion-ssh"
+  network    = google_compute_network.main.name
+  priority   = 1000
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["35.235.240.0/20"]
+  target_tags   = ["bastion"]
+}
+
 # Explicit deny-all ingress by default (lowest priority)
 resource "google_compute_firewall" "deny_all_ingress" {
   project   = var.project_id

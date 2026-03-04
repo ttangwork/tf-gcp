@@ -90,3 +90,16 @@ variable "node_pool_spot" {
   type        = bool
   default     = false
 }
+
+# bastion vm
+variable "bastion_machine_type" {
+  description = "The machine type of the bastion VM."
+  type        = string
+  default     = "e2-micro"
+}
+
+variable "bastion_zone" {
+  description = "The zone in which to create the bastion VM."
+  type        = string
+  default     = "us-central1-a"
+}

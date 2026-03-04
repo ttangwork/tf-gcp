@@ -19,6 +19,7 @@ env:
 
 jobs:
   terraform-plan:
+    name: Terraform Plan
     runs-on: ubuntu-latest
     environment: production
     if: (github.ref == 'refs/heads/main' && github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.inputs.destroy == 'false'

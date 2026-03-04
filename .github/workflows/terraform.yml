@@ -150,8 +150,8 @@ jobs:
     - name: Upload Plan
       uses: actions/upload-artifact@v4
       with:
-        name: tfplan
-        path: ${{ env.WORKING_DIR }}/tfplan
+        name: tfplan-destroy
+        path: ${{ env.WORKING_DIR }}/tfplan-destroy
         retention-days: 5
 
     - name: Terraform Destroy

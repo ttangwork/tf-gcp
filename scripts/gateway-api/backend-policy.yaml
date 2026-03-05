@@ -1,0 +1,18 @@
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: book-info-backend-policy
+  namespace: book-info
+spec:
+  default:
+    connectionDraining:
+      drainingTimeoutSec: 30
+    logging:
+      enabled: true
+      sampleRate: 1.0 # log 100% of requests (tune down for high traffic)
+    # Uncomment to attach a Cloud Armor security policy:
+    # securityPolicy: projects/YOUR_PROJECT/global/securityPolicies/YOUR_POLICY
+  targetRef:
+    group: "" # core API group
+    kind: Service
+    name: productpage

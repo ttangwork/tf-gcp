@@ -2,6 +2,9 @@
 
 This repository contains Terraform code that deploys GCP resources and the related workload deployment scripts and workflows
 
+## Infrastructure Provision
+The infrastructure can be deployed by `Terraform GCP` workflow in Github Actions.
+
 ## GKE
 A standard GKE cluster is deployed in `us-central1` with its dedicated `vpc`.
 

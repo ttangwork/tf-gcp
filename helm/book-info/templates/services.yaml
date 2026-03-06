@@ -1,0 +1,19 @@
+{{- range list "details" "ratings" "reviews" "productpage" }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ . }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app: {{ . }}
+    service: {{ . }}
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: {{ . }}
+{{- end }}
+
+---

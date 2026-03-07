@@ -1,9 +1,16 @@
 #!/bin/bash
 set -e
 HPA_ENABLED="${HPA_ENABLED:-false}"
+DESTROY_FLAG="${DESTROY_FLAG:-false}"
 NAMESPACE=book-info
 GREEN='\e[32m'
 RESET='\e[0m'
+
+if [ "$DESTROY_FLAG" = true ]; then
+  echo -e "${GREEN}Deleting namespace $NAMESPACE$ and its related resources{RESET}"
+  kubectl delete namespace "$NAMESPACE" || true
+  exit 0
+fi
 
 # deploy book-info app with or without HPA based on the flag
 if [ "$HPA_ENABLED" = true ]; then

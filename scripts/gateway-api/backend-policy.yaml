@@ -9,7 +9,7 @@ spec:
       drainingTimeoutSec: 30
     logging:
       enabled: true
-      sampleRate: 1.0 # log 100% of requests (tune down for high traffic)
+      sampleRate: 500000 #50% of requests will be logged
     # Uncomment to attach a Cloud Armor security policy:
     # securityPolicy: projects/YOUR_PROJECT/global/securityPolicies/YOUR_POLICY
   targetRef:

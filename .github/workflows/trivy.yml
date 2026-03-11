@@ -1,0 +1,51 @@
+name: Trivy Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  trivy-scan:
+    name: Trivy IaC Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Trivy (Terraform)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "config"
+          scan-ref: "environments"
+          format: "sarif"
+          output: "trivy-terraform.sarif"
+          severity: "HIGH,CRITICAL"
+
+      - name: Run Trivy (Helm)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "config"
+          scan-ref: "helm"
+          format: "sarif"
+          output: "trivy-helm.sarif"
+          severity: "HIGH,CRITICAL"
+
+      - name: Upload Terraform results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: "trivy-terraform.sarif"
+          category: "trivy-terraform"
+
+      - name: Upload Helm results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: "trivy-helm.sarif"
+          category: "trivy-helm"

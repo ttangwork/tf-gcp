@@ -7,7 +7,7 @@ spec:
   parentRefs:
   - name: ext-gateway
     namespace: platform
-    sectionName: http
+    sectionName: http-8080
 
   rules:
   - matches:

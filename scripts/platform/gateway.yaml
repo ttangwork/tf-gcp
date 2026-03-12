@@ -6,13 +6,13 @@ metadata:
 spec:
   gatewayClassName: gke-l7-global-external-managed
   listeners:
-  - name: 8080
+  - name: http-8080
     protocol: HTTP
     port: 8080
     allowedRoutes:
       namespaces:
         from: All
-  - name: 8081
+  - name: http-8081
     protocol: HTTP
     port: 8081
     allowedRoutes:

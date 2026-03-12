@@ -7,13 +7,13 @@ spec:
   parentRefs:
   - name: ext-gateway
     namespace: platform
-    sectionName: http
+    sectionName: http-8080
 
   rules:
   - matches:
     - path:
         type: Exact
-        value: /team-a
+        value: /
     backendRefs:
     - name: nginx
       port: 8080

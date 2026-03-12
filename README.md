@@ -6,10 +6,19 @@ This repository contains Terraform code that deploys GCP resources and the relat
 The infrastructure can be deployed by `Terraform GCP` workflow in Github Actions.
 
 ## GKE
-A standard GKE cluster is deployed in `us-central1` with its dedicated `vpc`.
+A standard GKE cluster is deployed in `us-central1` with its dedicated `vpc`. The cluster has the Gateway API enabled for managing external traffic routing.
+
+### Architecture
+
+The cluster uses the Kubernetes Gateway API with GKE's managed L7 external load balancer (`gke-l7-global-external-managed`). Traffic is routed using host-based routing through a shared gateway:
+
+- **Platform namespace** - owns the shared `ext-gateway` (port 8080)
+- **Team namespaces** - each team owns their own HTTPRoute, backend policy, and health check policy
+- Namespaces require the `gateway-access: "true"` label to attach routes to the gateway
 
 ### Workload Deployment
-Deploying Istio's sample book-info app using `kubectl` as well as `Helm` packaging.
+
+Team workloads are deployed using `kubectl` via [deploy.sh](./scripts/deploy.sh).
 
 ## Local Deployment
 
@@ -52,7 +61,26 @@ To connect to Bastion VM via IAP tunnel:
 gcloud compute ssh YOUR_CLUSTER_NAME --tunnel-through-iap --zone=YOUR_ZONE --project=YOUR_PROJECT_ID
 ```
 
-Once connected, you can then clone the repo and run [deploy.sh](./scripts/deploy.sh)
+Once connected, you can then clone the repo and run [deploy.sh](./scripts/deploy.sh):
+
+```
+bash scripts/deploy.sh
+```
+
+To destroy all deployed resources:
+
+```
+DESTROY_FLAG=true bash scripts/deploy.sh
+```
+
+#### Accessing team applications
+
+Each team's application is accessible via host-based routing on port 8080:
+
+```
+curl -H "Host: team-a.example.com" http://<LB_IP>:8080/
+curl -H "Host: team-b.example.com" http://<LB_IP>:8080/
+```
 
 #### helm
 

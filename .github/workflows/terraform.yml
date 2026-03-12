@@ -22,7 +22,7 @@ jobs:
     name: Terraform Plan
     runs-on: ubuntu-latest
     environment: production
-    if: (github.ref == 'refs/heads/main' && github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.inputs.destroy == 'false'
+    if: (github.ref == 'refs/heads/master' && github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.inputs.destroy == 'false'
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
@@ -68,7 +68,7 @@ jobs:
     name: Terraform Apply
     runs-on: ubuntu-latest
     needs: terraform-plan
-    if: (github.ref == 'refs/heads/main' && github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.inputs.destroy == 'false'
+    if: (github.ref == 'refs/heads/master' && github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.inputs.destroy == 'false'
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
@@ -105,7 +105,7 @@ jobs:
     name: Terraform Destroy
     runs-on: ubuntu-latest
     environment: production
-    if: (github.ref == 'refs/heads/main' && github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.inputs.destroy == 'true'
+    if: (github.ref == 'refs/heads/master' && github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.inputs.destroy == 'true'
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}

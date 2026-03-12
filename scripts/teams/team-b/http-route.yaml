@@ -13,8 +13,8 @@ spec:
   - matches:
     - path:
         type: Exact
-        value: /team-b
+        value: /
     backendRefs:
     - name: nginx
-      port: 8080
+      port: 8081
       weight: 100

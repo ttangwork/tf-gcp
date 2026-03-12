@@ -1,0 +1,18 @@
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: team-b-backend-policy
+  namespace: team-b
+spec:
+  default:
+    connectionDraining:
+      drainingTimeoutSec: 30
+    logging:
+      enabled: true
+      sampleRate: 500000 #50% of requests will be logged
+    # Uncomment to attach a Cloud Armor security policy:
+    # securityPolicy: projects/YOUR_PROJECT/global/securityPolicies/YOUR_POLICY
+  targetRef:
+    group: "" # core API group
+    kind: Service
+    name: nginx

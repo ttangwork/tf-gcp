@@ -1,8 +1,8 @@
 apiVersion: networking.gke.io/v1
 kind: GCPBackendPolicy
 metadata:
-  name: book-info-backend-policy
-  namespace: book-info
+  name: team-a-backend-policy
+  namespace: team-a
 spec:
   default:
     connectionDraining:
@@ -15,4 +15,4 @@ spec:
   targetRef:
     group: "" # core API group
     kind: Service
-    name: productpage
+    name: nginx

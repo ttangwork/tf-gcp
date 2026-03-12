@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: team-a-http-route
+  namespace: team-a
+spec:
+  parentRefs:
+  - name: ext-gateway
+    namespace: platform
+    sectionName: http
+
+  rules:
+  - matches:
+    - path:
+        type: Exact
+        value: /team-a
+    backendRefs:
+    - name: nginx
+      port: 8080
+      weight: 100

@@ -1,8 +1,8 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: ext-book-info-gateway
-  namespace: book-info
+  name: ext-gateway
+  namespace: platform
 spec:
   gatewayClassName: gke-l7-global-external-managed
   listeners:

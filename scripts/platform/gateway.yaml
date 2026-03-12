@@ -11,10 +11,7 @@ spec:
     port: 8080
     allowedRoutes:
       namespaces:
-        from: All
-  - name: http-8081
-    protocol: HTTP
-    port: 8081
-    allowedRoutes:
-      namespaces:
-        from: All
+        from: Selector
+        selector:
+          matchLabels:
+            gateway-access: "true"

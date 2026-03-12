@@ -7,8 +7,9 @@ spec:
   parentRefs:
   - name: ext-gateway
     namespace: platform
-    sectionName: http-8081
-
+    sectionName: http-8080
+  hostnames:
+  - "team-b.example.com"
   rules:
   - matches:
     - path:
@@ -16,5 +17,5 @@ spec:
         value: /
     backendRefs:
     - name: nginx
-      port: 8081
+      port: 8080
       weight: 100

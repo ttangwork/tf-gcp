@@ -8,7 +8,8 @@ spec:
   - name: ext-gateway
     namespace: platform
     sectionName: http-8080
-
+  hostnames:
+  - "team-a.example.com"
   rules:
   - matches:
     - path:

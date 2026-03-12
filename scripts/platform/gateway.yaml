@@ -15,12 +15,3 @@ spec:
         selector:
           matchLabels:
             gateway-access: "true"
-  - name: http-8081
-    protocol: HTTP
-    port: 8081
-    allowedRoutes:
-      namespaces:
-        from: Selector
-        selector:
-          matchLabels:
-            gateway-access: "true"

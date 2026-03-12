@@ -4,3 +4,4 @@ metadata:
   name: team-a
   labels:
     name: team-a
+    gateway-access: "true"

@@ -1,8 +1,8 @@
 apiVersion: networking.gke.io/v1
 kind: GCPBackendPolicy
 metadata:
-  name: zerg-backend-policy
-  namespace: zerg
+  name: alpha-backend-policy
+  namespace: alpha
 spec:
   default:
     connectionDraining:

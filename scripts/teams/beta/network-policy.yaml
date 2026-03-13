@@ -1,9 +1,9 @@
-# NetworkPolicy to isolate zerg namespace
+# NetworkPolicy to isolate beta namespace
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: zerg-network-policy
-  namespace: zerg
+  name: beta-network-policy
+  namespace: beta
 spec:
   podSelector: {}
   policyTypes:
@@ -14,7 +14,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          kubernetes.io/metadata.name: zerg
+          kubernetes.io/metadata.name: beta
   # Allow GCP load balancer and health check traffic
   - from:
     - ipBlock:

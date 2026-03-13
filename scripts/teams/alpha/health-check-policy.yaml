@@ -1,8 +1,8 @@
 apiVersion: networking.gke.io/v1
 kind: HealthCheckPolicy
 metadata:
-  name: terran-health-check
-  namespace: terran
+  name: alpha-health-check
+  namespace: alpha
 spec:
   default:
     checkIntervalSec: 15

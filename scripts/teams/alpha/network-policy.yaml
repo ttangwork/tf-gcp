@@ -1,9 +1,9 @@
-# NetworkPolicy to isolate terran namespace
+# NetworkPolicy to isolate alpha namespace
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: terran-network-policy
-  namespace: terran
+  name: alpha-network-policy
+  namespace: alpha
 spec:
   podSelector: {}
   policyTypes:
@@ -14,7 +14,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          kubernetes.io/metadata.name: terran
+          kubernetes.io/metadata.name: alpha
   # Allow GCP load balancer and health check traffic
   - from:
     - ipBlock:

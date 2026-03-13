@@ -1,8 +1,8 @@
 apiVersion: networking.gke.io/v1
 kind: GCPBackendPolicy
 metadata:
-  name: terran-backend-policy
-  namespace: terran
+  name: beta-backend-policy
+  namespace: beta
 spec:
   default:
     connectionDraining:

@@ -78,6 +78,6 @@ DESTROY_FLAG=true bash scripts/deploy.sh
 Each team's application is accessible via host-based routing on port 8080:
 
 ```
-curl -H "Host: team-a.example.com" http://<LB_IP>:8080/
-curl -H "Host: team-b.example.com" http://<LB_IP>:8080/
+curl -H "Host: terran.example.com" http://<LB_IP>:8080/
+curl -H "Host: zerg.example.com" http://<LB_IP>:8080/
 ```

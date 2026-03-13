@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx
-  namespace: team-b
+  namespace: terran
   labels:
     app: nginx
     service: nginx
@@ -21,7 +21,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: nginx
-  namespace: team-b
+  namespace: terran
   labels:
     account: nginx
 ---
@@ -31,7 +31,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  namespace: team-b
+  namespace: terran
   labels:
     app: nginx
     version: v1

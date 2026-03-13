@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: team-a
+  name: terran
   labels:
-    name: team-a
+    name: terran
     gateway-access: "true"

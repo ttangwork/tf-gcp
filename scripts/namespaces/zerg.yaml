@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: team-b
+  name: zerg
   labels:
-    name: team-b
+    name: zerg
     gateway-access: "true"

@@ -62,16 +62,16 @@ To connect to Bastion VM via IAP tunnel:
 gcloud compute ssh YOUR_CLUSTER_NAME --tunnel-through-iap --zone=YOUR_ZONE --project=YOUR_PROJECT_ID
 ```
 
-Once connected, you can then clone the repo and run [deploy.sh](./scripts/deploy.sh):
+Once connected, you can then clone the repo and run the deployment using `make`:
 
 ```
-bash scripts/deploy.sh
+make deploy
 ```
 
 To destroy all deployed resources:
 
 ```
-DESTROY_FLAG=true bash scripts/deploy.sh
+make destroy
 ```
 
 #### Accessing team applications

@@ -7,7 +7,7 @@ deploy: install-kyverno namespaces platform teams-alpha teams-beta
 	@echo "Deployment complete"
 
 install-kyverno:
-	@if ! kubectl get namespace kyverno &>/dev/null; then \
+	@if ! kubectl get namespace kyverno >/dev/null 2>&1; then \
 		echo "Installing Kyverno $(KYVERNO_VERSION)"; \
 		kubectl create -f "https://github.com/kyverno/kyverno/releases/download/$(KYVERNO_VERSION)/install.yaml"; \
 		echo "Waiting for Kyverno to be ready"; \

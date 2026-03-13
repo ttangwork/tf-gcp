@@ -1,5 +1,7 @@
 # Terraform GCP playground
 
+[![Terraform GCP](https://github.com/ttangwork/tf-gcp/actions/workflows/terraform.yml/badge.svg)](https://github.com/ttangwork/tf-gcp/actions/workflows/terraform.yml)
+
 This repository contains infrastructure code that deploys GCP services & demo workloads
 
 ## Infrastructure Provision

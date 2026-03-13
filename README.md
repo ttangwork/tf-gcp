@@ -21,7 +21,7 @@ The cluster uses the Kubernetes Gateway API with GKE's managed L7 external load 
 
 ### Workload Deployment
 
-Team workloads are deployed using `kubectl` via [deploy.sh](./scripts/deploy.sh).
+Team workloads are deployed using `kubectl` via the [Makefile](./Makefile).
 
 ## Local Deployment
 

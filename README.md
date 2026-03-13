@@ -1,6 +1,6 @@
 # Terraform GCP playground
 
-This repository contains Terraform code that deploys GCP resources and the related workload deployment scripts and workflows
+This repository contains infrastructure code that deploys GCP services & demo workloads
 
 ## Infrastructure Provision
 The infrastructure can be deployed by `Terraform GCP` workflow in Github Actions.
@@ -45,9 +45,7 @@ terraform validate .
 ```
 ### Workloads
 
-There are 2 ways to deploy workloads to GKE: `kubectl` or `helm`.
-
-#### kubectl
+You can run `kubectl` to manage workloads/resources in GKE.
 
 First you need to login:
 
@@ -80,36 +78,4 @@ Each team's application is accessible via host-based routing on port 8080:
 ```
 curl -H "Host: team-a.example.com" http://<LB_IP>:8080/
 curl -H "Host: team-b.example.com" http://<LB_IP>:8080/
-```
-
-#### helm
-
-Validate the template:
-
-```
-helm template book-info ./helm/book-info
-```
-
-Linting:
-
-```
-helm lint ./helm/book-info
-```
-
-Install the package:
-
-```
-helm install
-```
-
-To upgrade the package:
-
-```
-helm upgrade
-```
-
-To uninstall:
-
-```
-helm uninstall
 ```

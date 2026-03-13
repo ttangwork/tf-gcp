@@ -1,0 +1,145 @@
+# Require HTTPRoute hostnames to match the namespace name
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-httproute-hostnames
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+  - name: hostname-must-match-namespace
+    match:
+      any:
+      - resources:
+          kinds:
+          - HTTPRoute
+    validate:
+      message: "HTTPRoute hostnames must start with the namespace name (e.g. {{request.namespace}}.example.com)"
+      pattern:
+        spec:
+          hostnames:
+          - "{{request.namespace}}.*"
+---
+# Deny privileged containers
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: deny-privileged-containers
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+  - name: deny-privileged
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          - kube-node-lease
+          - kube-public
+          - gke-managed-system
+    validate:
+      message: "Privileged containers are not allowed"
+      pattern:
+        spec:
+          containers:
+          - =(securityContext):
+              =(privileged): false
+---
+# Deny NodePort services
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: deny-nodeport-services
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+  - name: deny-nodeport
+    match:
+      any:
+      - resources:
+          kinds:
+          - Service
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          - platform
+    validate:
+      message: "NodePort services are not allowed. Use ClusterIP with Gateway API instead."
+      pattern:
+        spec:
+          type: "!NodePort"
+---
+# Require resource requests and limits on all containers
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-resource-limits
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+  - name: require-requests-and-limits
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          - kube-node-lease
+          - kube-public
+          - gke-managed-system
+    validate:
+      message: "All containers must specify resource requests and limits"
+      pattern:
+        spec:
+          containers:
+          - resources:
+              requests:
+                memory: "?*"
+                cpu: "?*"
+              limits:
+                memory: "?*"
+                cpu: "?*"
+---
+# Restrict container images to allowed registries
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-image-registries
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+  - name: allowed-registries-only
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          - kube-node-lease
+          - kube-public
+          - gke-managed-system
+    validate:
+      message: "Images must come from allowed registries (docker.io, gcr.io, or your Artifact Registry)"
+      pattern:
+        spec:
+          containers:
+          - image: "docker.io/* | gcr.io/* | us-docker.pkg.dev/* | nginx:*"

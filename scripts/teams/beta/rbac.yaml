@@ -1,0 +1,14 @@
+# RoleBinding to grant admin access to team beta within their namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: beta-admin
+  namespace: beta
+subjects:
+- kind: Group
+  name: beta@example.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin

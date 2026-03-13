@@ -15,7 +15,7 @@ A standard GKE cluster is deployed in `us-central1` with its dedicated `vpc`. Th
 The cluster uses the Kubernetes Gateway API with GKE's managed L7 external load balancer (`gke-l7-global-external-managed`). Traffic is routed using host-based routing through a shared gateway:
 
 - **Platform namespace** - owns the shared `ext-gateway` (port 8080)
-- **Team namespaces** - each team owns their own HTTPRoute, backend policy, health check policy, network policy, and resource quota
+- **Team namespaces** - each team owns their own HTTPRoute, backend policy, health check policy, network policy, resource quota, and RBAC role binding
 - Namespaces require the `gateway-access: "true"` label to attach routes to the gateway
 
 ### Workload Deployment

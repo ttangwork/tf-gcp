@@ -1,8 +1,8 @@
 apiVersion: networking.gke.io/v1
 kind: GCPBackendPolicy
 metadata:
-  name: team-a-backend-policy
-  namespace: team-a
+  name: alpha-backend-policy
+  namespace: alpha
 spec:
   default:
     connectionDraining:

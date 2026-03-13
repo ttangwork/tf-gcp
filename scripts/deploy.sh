@@ -8,8 +8,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [ "$DESTROY_FLAG" = true ]; then
   echo -e "${GREEN}Deleting team namespaces and platform resources${RESET}"
-  kubectl delete -f "$SCRIPT_DIR/teams/team-a/" --ignore-not-found
-  kubectl delete -f "$SCRIPT_DIR/teams/team-b/" --ignore-not-found
+  kubectl delete -f "$SCRIPT_DIR/teams/alpha/" --ignore-not-found
+  kubectl delete -f "$SCRIPT_DIR/teams/beta/" --ignore-not-found
   kubectl delete -f "$SCRIPT_DIR/platform/" --ignore-not-found
   kubectl delete -f "$SCRIPT_DIR/namespaces/" --ignore-not-found
   exit 0
@@ -24,10 +24,10 @@ echo -e "${GREEN}Deploying platform resources${RESET}"
 kubectl apply -f "$SCRIPT_DIR/platform/"
 
 # deploy team resources (services, routes, policies)
-echo -e "${GREEN}Deploying team-a resources${RESET}"
-kubectl apply -f "$SCRIPT_DIR/teams/team-a/"
+echo -e "${GREEN}Deploying alpha resources${RESET}"
+kubectl apply -f "$SCRIPT_DIR/teams/alpha/"
 
-echo -e "${GREEN}Deploying team-b resources${RESET}"
-kubectl apply -f "$SCRIPT_DIR/teams/team-b/"
+echo -e "${GREEN}Deploying beta resources${RESET}"
+kubectl apply -f "$SCRIPT_DIR/teams/beta/"
 
 echo -e "${GREEN}Deployment complete${RESET}"

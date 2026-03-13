@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: team-b
+  name: alpha
   labels:
-    name: team-b
+    name: alpha
     gateway-access: "true"

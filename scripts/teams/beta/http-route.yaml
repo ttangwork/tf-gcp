@@ -1,15 +1,15 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: team-b-http-route
-  namespace: team-b
+  name: beta-http-route
+  namespace: beta
 spec:
   parentRefs:
   - name: ext-gateway
     namespace: platform
     sectionName: http-8080
   hostnames:
-  - "team-b.example.com"
+  - "beta.example.com"
   rules:
   - matches:
     - path:

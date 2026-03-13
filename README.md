@@ -17,6 +17,7 @@ The cluster uses the Kubernetes Gateway API with GKE's managed L7 external load 
 - **Platform namespace** - owns the shared `ext-gateway` (port 8080)
 - **Team namespaces** - each team owns their own HTTPRoute, backend policy, health check policy, network policy, resource quota, and RBAC role binding
 - Namespaces require the `gateway-access: "true"` label to attach routes to the gateway
+- **Kyverno policies** enforce cluster-wide guardrails (hostname conventions, no privileged containers, no NodePort services, required resource limits, image registry restrictions)
 
 ### Workload Deployment
 

@@ -142,4 +142,4 @@ spec:
       pattern:
         spec:
           containers:
-          - image: "docker.io/* | gcr.io/* | us-docker.pkg.dev/* | nginx:*"
+          - image: "docker.io/* | gcr.io/* | us-docker.pkg.dev/*"

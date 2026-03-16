@@ -30,16 +30,26 @@ platform:
 
 teams-alpha:
 	@echo "Deploying alpha resources"
-	kubectl apply -f $(MANIFESTS_DIR)/teams/alpha/
+	@for f in $(MANIFESTS_DIR)/teams/alpha/*.yaml; do \
+		if [ "$(INGRESS_MODE)" = "ingress" ] && echo "$$f" | grep -q "http-route"; then \
+			echo "Skipping $$f (ingress mode)"; \
+			continue; \
+		fi; \
+		kubectl apply -f "$$f"; \
+	done
 
 teams-beta:
 	@echo "Deploying beta resources"
-	kubectl apply -f $(MANIFESTS_DIR)/teams/beta/
+	@for f in $(MANIFESTS_DIR)/teams/beta/*.yaml; do \
+		if [ "$(INGRESS_MODE)" = "ingress" ] && echo "$$f" | grep -q "http-route"; then \
+			echo "Skipping $$f (ingress mode)"; \
+			continue; \
+		fi; \
+		kubectl apply -f "$$f"; \
+	done
 
 destroy:
-	@echo "Deleting team namespaces and platform resources"
-	kubectl delete -f $(MANIFESTS_DIR)/teams/alpha/ --ignore-not-found
-	kubectl delete -f $(MANIFESTS_DIR)/teams/beta/ --ignore-not-found
-	kubectl delete -f $(MANIFESTS_DIR)/platform/$(INGRESS_MODE).yaml --ignore-not-found
+	@echo "Deleting all resources"
+	kubectl delete namespace alpha beta --ignore-not-found
+	kubectl delete namespace platform --ignore-not-found
 	kubectl delete -f $(MANIFESTS_DIR)/platform/kyverno-policies.yaml --ignore-not-found
-	kubectl delete -f $(MANIFESTS_DIR)/namespaces/ --ignore-not-found

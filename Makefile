@@ -26,7 +26,7 @@ platform:
 	fi
 	@echo "Deploying platform resources (mode: $(INGRESS_MODE))"
 	kubectl apply -f $(MANIFESTS_DIR)/platform/$(INGRESS_MODE).yaml
-	kubectl apply -f $(MANIFESTS_DIR)/platform/kyverno.yaml
+	kubectl apply -f $(MANIFESTS_DIR)/platform/kyverno-policies.yaml
 
 teams-alpha:
 	@echo "Deploying alpha resources"

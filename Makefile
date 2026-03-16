@@ -1,5 +1,6 @@
 KYVERNO_VERSION ?= v1.13.4
 MANIFESTS_DIR := manifests
+INGRESS_MODE ?= gateway
 
 .PHONY: deploy destroy install-kyverno namespaces platform teams-alpha teams-beta
 
@@ -19,8 +20,13 @@ namespaces:
 	kubectl apply -f $(MANIFESTS_DIR)/namespaces/
 
 platform:
-	@echo "Deploying platform resources"
-	kubectl apply -f $(MANIFESTS_DIR)/platform/
+	@if [ "$(INGRESS_MODE)" != "gateway" ] && [ "$(INGRESS_MODE)" != "ingress" ]; then \
+		echo "Error: INGRESS_MODE must be 'gateway' or 'ingress' (got '$(INGRESS_MODE)')"; \
+		exit 1; \
+	fi
+	@echo "Deploying platform resources (mode: $(INGRESS_MODE))"
+	kubectl apply -f $(MANIFESTS_DIR)/platform/$(INGRESS_MODE).yaml
+	kubectl apply -f $(MANIFESTS_DIR)/platform/kyverno.yaml
 
 teams-alpha:
 	@echo "Deploying alpha resources"

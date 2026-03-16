@@ -173,9 +173,9 @@ resource "google_service_account" "bastion" {
   display_name = "Bastion VM SA - ${var.cluster_name}"
 }
 
-resource "google_project_iam_member" "bastion_cluster_viewer" {
+resource "google_project_iam_member" "bastion_cluster_admin" {
   project = var.project_id
-  role    = "roles/container.clusterViewer"
+  role    = "roles/container.admin"
   member  = "serviceAccount:${google_service_account.bastion.email}"
 }
 

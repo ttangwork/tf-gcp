@@ -62,7 +62,13 @@ To connect to Bastion VM via IAP tunnel:
 gcloud compute ssh YOUR_CLUSTER_NAME --tunnel-through-iap --zone=YOUR_ZONE --project=YOUR_PROJECT_ID
 ```
 
-Once connected, you can then clone the repo and deploy using either Helm or Make.
+Once connected, fetch the cluster credentials:
+
+```
+gcloud container clusters get-credentials YOUR_CLUSTER_NAME --zone YOUR_ZONE --project YOUR_PROJECT_ID
+```
+
+Then clone the repo and deploy using either Helm or Make.
 
 #### Helm
 

@@ -40,5 +40,6 @@ destroy:
 	@echo "Deleting team namespaces and platform resources"
 	kubectl delete -f $(MANIFESTS_DIR)/teams/alpha/ --ignore-not-found
 	kubectl delete -f $(MANIFESTS_DIR)/teams/beta/ --ignore-not-found
-	kubectl delete -f $(MANIFESTS_DIR)/platform/ --ignore-not-found
+	kubectl delete -f $(MANIFESTS_DIR)/platform/$(INGRESS_MODE).yaml --ignore-not-found
+	kubectl delete -f $(MANIFESTS_DIR)/platform/kyverno-policies.yaml --ignore-not-found
 	kubectl delete -f $(MANIFESTS_DIR)/namespaces/ --ignore-not-found

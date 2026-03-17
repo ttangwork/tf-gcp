@@ -104,12 +104,6 @@ Deploy (defaults to Gateway API mode):
 make deploy
 ```
 
-Deploy with Ingress mode:
-
-```
-make deploy INGRESS_MODE=ingress
-```
-
 To destroy all deployed resources:
 
 ```

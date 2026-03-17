@@ -206,6 +206,14 @@ resource "google_compute_instance" "bastion" {
 
   metadata = {
     enable-oslogin = "TRUE"
+    startup-script = <<-EOT
+      #!/bin/bash
+      set -e
+      if [ -f /opt/.startup-done ]; then exit 0; fi
+      apt-get update
+      apt-get install -y git kubectl kubectx google-cloud-cli-gke-gcloud-auth-plugin
+      touch /opt/.startup-done
+    EOT
   }
 
   tags = ["bastion"]

@@ -1,5 +1,3 @@
-ingressMode: gateway # gateway or ingress
-
 domain: example.com
 
 kyverno:

@@ -1,4 +1,3 @@
-{{- if eq .Values.ingressMode "gateway" }}
 {{- range $name, $team := .Values.teams }}
 ---
 apiVersion: gateway.networking.k8s.io/v1
@@ -22,5 +21,4 @@ spec:
     - name: nginx
       port: 8080
       weight: 100
-{{- end }}
 {{- end }}

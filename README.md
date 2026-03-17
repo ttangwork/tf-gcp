@@ -72,16 +72,10 @@ Then clone the repo and deploy using either Helm or Make.
 
 #### Helm
 
-Deploy with Gateway API (default):
+Deploy with Gateway API:
 
 ```
 helm install gke-platform helm/gke-platform/
-```
-
-Deploy with Ingress instead of Gateway API:
-
-```
-helm install gke-platform helm/gke-platform/ --set ingressMode=ingress
 ```
 
 Deploy without Kyverno policies:
@@ -98,7 +92,7 @@ helm uninstall gke-platform
 
 #### Make
 
-Deploy (defaults to Gateway API mode):
+Deploy:
 
 ```
 make deploy

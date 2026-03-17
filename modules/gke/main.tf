@@ -173,9 +173,9 @@ resource "google_service_account" "bastion" {
   display_name = "Bastion VM SA - ${var.cluster_name}"
 }
 
-resource "google_project_iam_member" "bastion_cluster_viewer" {
+resource "google_project_iam_member" "bastion_cluster_admin" {
   project = var.project_id
-  role    = "roles/container.clusterViewer"
+  role    = "roles/container.admin"
   member  = "serviceAccount:${google_service_account.bastion.email}"
 }
 
@@ -206,6 +206,15 @@ resource "google_compute_instance" "bastion" {
 
   metadata = {
     enable-oslogin = "TRUE"
+    startup-script = <<-EOT
+      #!/bin/bash
+      set -e
+      if [ -f /opt/.startup-done ]; then exit 0; fi
+      apt-get update
+      apt-get install -y git kubectl kubectx helm google-cloud-cli-gke-gcloud-auth-plugin
+      dpkg -s git kubectl kubectx helm google-cloud-cli-gke-gcloud-auth-plugin > /dev/null 2>&1
+      touch /opt/.startup-done
+    EOT
   }
 
   tags = ["bastion"]

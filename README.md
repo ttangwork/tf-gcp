@@ -21,7 +21,7 @@ The cluster uses the Kubernetes Gateway API with GKE's managed L7 external load 
 
 ### Workload Deployment
 
-Team workloads are deployed using `kubectl` via the [Makefile](./Makefile).
+Team workloads can be deployed using either the [Helm chart](./helm/gke-platform/) or `kubectl` via the [Makefile](./Makefile).
 
 ## Local Deployment
 
@@ -62,10 +62,52 @@ To connect to Bastion VM via IAP tunnel:
 gcloud compute ssh YOUR_CLUSTER_NAME --tunnel-through-iap --zone=YOUR_ZONE --project=YOUR_PROJECT_ID
 ```
 
-Once connected, you can then clone the repo and run the deployment using `make`:
+Once connected, fetch the cluster credentials:
+
+```
+gcloud container clusters get-credentials YOUR_CLUSTER_NAME --zone YOUR_ZONE --project YOUR_PROJECT_ID
+```
+
+Then clone the repo and deploy using either Helm or Make.
+
+#### Helm
+
+Deploy with Gateway API (default):
+
+```
+helm install gke-platform helm/gke-platform/
+```
+
+Deploy with Ingress instead of Gateway API:
+
+```
+helm install gke-platform helm/gke-platform/ --set ingressMode=ingress
+```
+
+Deploy without Kyverno policies:
+
+```
+helm install gke-platform helm/gke-platform/ --set kyverno.enabled=false
+```
+
+To uninstall:
+
+```
+helm uninstall gke-platform
+```
+
+#### Make
+
+Deploy (defaults to Gateway API mode):
 
 ```
 make deploy
+```
+
+Deploy with Ingress mode:
+
+```
+make deploy INGRESS_MODE=ingress
 ```
 
 To destroy all deployed resources:

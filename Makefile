@@ -37,5 +37,5 @@ destroy:
 	@echo "$(GREEN)Deleting all resources$(RESET)"
 	kubectl delete namespace alpha beta --ignore-not-found
 	kubectl delete namespace platform --ignore-not-found
-	kubectl delete -f $(MANIFESTS_DIR)/platform/kyverno-policies.yaml --ignore-not-found
+	kubectl delete -f $(MANIFESTS_DIR)/platform/ --ignore-not-found
 	kubectl delete -f "https://github.com/kyverno/kyverno/releases/download/$(KYVERNO_VERSION)/install.yaml" --ignore-not-found

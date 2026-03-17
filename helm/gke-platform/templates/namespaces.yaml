@@ -1,0 +1,17 @@
+{{- range $name, $team := .Values.teams }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $name }}
+  labels:
+    gateway-access: "true"
+    {{- include "gke-platform.labels" $ | nindent 4 }}
+{{- end }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: platform
+  labels:
+    {{- include "gke-platform.labels" . | nindent 4 }}

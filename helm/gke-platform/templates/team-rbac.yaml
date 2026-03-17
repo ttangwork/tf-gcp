@@ -1,0 +1,16 @@
+{{- range $name, $team := .Values.teams }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $name }}-admin
+  namespace: {{ $name }}
+subjects:
+- kind: Group
+  name: {{ $team.adminGroup }}
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+{{- end }}

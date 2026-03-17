@@ -1,0 +1,13 @@
+{{- range $name, $team := .Values.teams }}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ $name }}-nginx-pdb
+  namespace: {{ $name }}
+spec:
+  minAvailable: {{ $team.pdb.minAvailable }}
+  selector:
+    matchLabels:
+      app: nginx
+{{- end }}

@@ -1,42 +1,23 @@
-# Service for nginx deployment
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx
-  namespace: beta
-  labels:
-    app: nginx
-    service: nginx
-spec:
-  ports:
-  - port: 8080
-    targetPort: 80
-    name: http
-  selector:
-    app: nginx
+{{- range $name, $team := .Values.teams }}
 ---
-
-# Service account for nginx deployment
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: nginx
-  namespace: beta
+  namespace: {{ $name }}
   labels:
     account: nginx
 ---
-
-# Deployment for nginx
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  namespace: beta
+  namespace: {{ $name }}
   labels:
     app: nginx
     version: v1
 spec:
-  replicas: 2
+  replicas: {{ $team.replicas }}
   selector:
     matchLabels:
       app: nginx
@@ -50,15 +31,15 @@ spec:
       serviceAccountName: nginx
       containers:
       - name: nginx
-        image: docker.io/nginx:alpine
+        image: {{ $team.image }}
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            cpu: 250m
-            memory: 256Mi
+            cpu: {{ $team.resources.requests.cpu }}
+            memory: {{ $team.resources.requests.memory }}
           limits:
-            cpu: 500m
-            memory: 256Mi
+            cpu: {{ $team.resources.limits.cpu }}
+            memory: {{ $team.resources.limits.memory }}
         ports:
         - containerPort: 80
----
+{{- end }}

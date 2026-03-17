@@ -1,0 +1,25 @@
+{{- range $name, $team := .Values.teams }}
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: {{ $name }}-health-check
+  namespace: {{ $name }}
+spec:
+  default:
+    checkIntervalSec: {{ $team.healthCheck.checkIntervalSec }}
+    timeoutSec: {{ $team.healthCheck.timeoutSec }}
+    healthyThreshold: {{ $team.healthCheck.healthyThreshold }}
+    unhealthyThreshold: {{ $team.healthCheck.unhealthyThreshold }}
+    logConfig:
+      enabled: true
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: {{ $team.healthCheck.port }}
+        requestPath: {{ $team.healthCheck.requestPath }}
+  targetRef:
+    group: ""
+    kind: Service
+    name: nginx
+{{- end }}

@@ -211,7 +211,8 @@ resource "google_compute_instance" "bastion" {
       set -e
       if [ -f /opt/.startup-done ]; then exit 0; fi
       apt-get update
-      apt-get install -y git kubectl kubectx google-cloud-cli-gke-gcloud-auth-plugin
+      apt-get install -y git kubectl kubectx helm google-cloud-cli-gke-gcloud-auth-plugin
+      dpkg -s git kubectl kubectx helm google-cloud-cli-gke-gcloud-auth-plugin > /dev/null 2>&1
       touch /opt/.startup-done
     EOT
   }

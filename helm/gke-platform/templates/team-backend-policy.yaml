@@ -1,0 +1,19 @@
+{{- range $name, $team := .Values.teams }}
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: {{ $name }}-backend-policy
+  namespace: {{ $name }}
+spec:
+  default:
+    connectionDraining:
+      drainingTimeoutSec: {{ $team.backendPolicy.connectionDrainingTimeoutSec }}
+    logging:
+      enabled: true
+      sampleRate: {{ $team.backendPolicy.loggingSampleRate }}
+  targetRef:
+    group: ""
+    kind: Service
+    name: nginx
+{{- end }}

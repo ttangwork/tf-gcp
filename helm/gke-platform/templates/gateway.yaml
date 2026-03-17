@@ -1,0 +1,19 @@
+{{- if eq .Values.ingressMode "gateway" }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: ext-gateway
+  namespace: platform
+spec:
+  gatewayClassName: gke-l7-global-external-managed
+  listeners:
+  - name: http-8080
+    protocol: HTTP
+    port: 8080
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            gateway-access: "true"
+{{- end }}

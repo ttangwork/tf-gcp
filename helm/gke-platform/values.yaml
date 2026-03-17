@@ -1,0 +1,74 @@
+ingressMode: gateway # gateway or ingress
+
+domain: example.com
+
+kyverno:
+  enabled: true
+  allowedRegistries: "docker.io/* | gcr.io/* | us-docker.pkg.dev/*"
+
+teams:
+  alpha:
+    image: docker.io/nginx:alpine
+    replicas: 2
+    adminGroup: alpha@example.com
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi
+    quota:
+      cpu:
+        requests: "4"
+        limits: "8"
+      memory:
+        requests: 4Gi
+        limits: 8Gi
+      pods: "20"
+      services: "10"
+    healthCheck:
+      checkIntervalSec: 15
+      timeoutSec: 5
+      healthyThreshold: 1
+      unhealthyThreshold: 2
+      port: 80
+      requestPath: /
+    backendPolicy:
+      connectionDrainingTimeoutSec: 30
+      loggingSampleRate: 500000
+    pdb:
+      minAvailable: 1
+
+  beta:
+    image: docker.io/nginx:alpine
+    replicas: 2
+    adminGroup: beta@example.com
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi
+    quota:
+      cpu:
+        requests: "4"
+        limits: "8"
+      memory:
+        requests: 4Gi
+        limits: 8Gi
+      pods: "20"
+      services: "10"
+    healthCheck:
+      checkIntervalSec: 15
+      timeoutSec: 5
+      healthyThreshold: 1
+      unhealthyThreshold: 2
+      port: 80
+      requestPath: /
+    backendPolicy:
+      connectionDrainingTimeoutSec: 30
+      loggingSampleRate: 500000
+    pdb:
+      minAvailable: 1

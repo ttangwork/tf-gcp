@@ -1,0 +1,35 @@
+{{- if eq .Values.ingressMode "ingress" }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ext-ingress
+  namespace: platform
+spec:
+  ingressClassName: gce
+  rules:
+  {{- range $name, $team := .Values.teams }}
+  - host: {{ $name }}.{{ $.Values.domain }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $name }}-nginx
+            port:
+              number: 8080
+  {{- end }}
+{{- range $name, $team := .Values.teams }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}-nginx
+  namespace: platform
+spec:
+  type: ExternalName
+  externalName: nginx.{{ $name }}.svc.cluster.local
+  ports:
+  - port: 8080
+{{- end }}
+{{- end }}

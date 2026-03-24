@@ -82,7 +82,4 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-        runAsNonRoot: true
-        runAsUser: 1001
-        runAsGroup: 1001
 ---

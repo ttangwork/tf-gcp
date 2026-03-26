@@ -52,6 +52,13 @@ spec:
       - name: nginx
         image: docker.io/nginx:alpine
         imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: beta-config
+        volumeMounts:
+          - name: config
+            mountPath: "/config"
+            readOnly: true
         resources:
           requests:
             cpu: 250m
@@ -82,4 +89,11 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
+      volumes:
+      - name: config
+        configMap:
+          name: beta-config
+          items:
+          - key: config.yaml
+            path: config.yaml
 ---

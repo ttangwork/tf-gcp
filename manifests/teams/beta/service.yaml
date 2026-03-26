@@ -55,6 +55,8 @@ spec:
         envFrom:
           - configMapRef:
               name: beta-config
+          - secretRef:
+              name: beta-secret
         volumeMounts:
           - name: config
             mountPath: "/config"

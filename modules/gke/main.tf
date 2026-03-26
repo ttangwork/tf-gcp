@@ -211,8 +211,13 @@ resource "google_compute_instance" "bastion" {
       set -e
       if [ -f /opt/.startup-done ]; then exit 0; fi
       apt-get update
-      apt-get install -y git kubectl kubectx helm google-cloud-cli-gke-gcloud-auth-plugin
-      dpkg -s git kubectl kubectx helm google-cloud-cli-gke-gcloud-auth-plugin > /dev/null 2>&1
+      apt-get install -y git kubectl kubectx google-cloud-cli-gke-gcloud-auth-plugin
+      dpkg -s git kubectl kubectx google-cloud-cli-gke-gcloud-auth-plugin > /dev/null 2>&1
+      echo "installing helm"
+      curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+      chmod 700 get_helm.sh
+      ./get_helm.sh
+      which helm
       touch /opt/.startup-done
     EOT
   }

@@ -12,4 +12,3 @@ data:
   config.yaml: |
     platform: gcp
     region: us-central1
-  

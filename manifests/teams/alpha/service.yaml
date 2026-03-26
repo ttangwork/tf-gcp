@@ -63,6 +63,11 @@ spec:
               configMapKeyRef:
                 name: alpha-config
                 key: team
+          - name: API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: alpha-secret
+                key: api-key
         volumeMounts:
           - name: config
             mountPath: "/config"

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: beta-config
+  namespace: beta
+data:
+  # property-like keys
+  environment: beta
+  team: beta
+
+  # file-like keys
+  config.yaml: |
+    platform: gcp
+    region: us-central1
+  

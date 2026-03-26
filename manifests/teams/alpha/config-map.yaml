@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alpha-config
+  namespace: alpha
+data:
+  # property-like keys
+  environment: alpha
+  team: alpha
+
+  # file-like keys
+  config.yaml: |
+    platform: gcp
+    region: us-central1
+  

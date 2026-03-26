@@ -14,7 +14,7 @@ install-kyverno:
 		echo "$(GREEN)Installing Kyverno $(KYVERNO_VERSION)$(RESET)"; \
 		kubectl create -f "https://github.com/kyverno/kyverno/releases/download/$(KYVERNO_VERSION)/install.yaml"; \
 		echo "$(GREEN)Waiting for Kyverno to be ready$(RESET)"; \
-		kubectl wait --for=condition=ready pod -l app.kubernetes.io/instance=kyverno -n kyverno --timeout=120s; \
+		kubectl wait --for=condition=available deployment -l app.kubernetes.io/instance=kyverno -n kyverno --timeout=120s; \
 	fi
 
 namespaces:

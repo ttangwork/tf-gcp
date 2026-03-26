@@ -1,5 +1,3 @@
-# project
-project_id = "project-f53962c2-b852-4294-a0f"
 region     = "us-central1"
 
 # vpc
